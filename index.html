@@ -1,55 +1,78 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Lucky Draw Form</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body { font-family: sans-serif; background: #f4f4f4; display: flex; flex-direction: column; align-items: center; padding: 2rem; }
-        h2 { color: #333; }
-        input, button { padding: 0.8rem; margin: 0.5rem 0; width: 100%; max-width: 300px; border-radius: 5px; border: 1px solid #ccc; }
-        button { background: #28a745; color: white; border: none; cursor: pointer; }
-        button:hover { background: #218838; }
-        .message { margin-top: 1rem; font-weight: bold; }
-    </style>
+  <meta charset="UTF-8">
+  <title>Lucky Draw Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+    h2 { color: #333; }
+    input, button {
+      padding: 0.8rem;
+      margin: 0.5rem 0;
+      width: 100%;
+      max-width: 300px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #218838;
+    }
+    .message {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-    <h2>📋 抽奖登记</h2>
-    <input type="text" id="name" placeholder="请输入姓名" required>
-    <input type="tel" id="phone" placeholder="请输入手机号" required>
-    <button onclick="submitForm()">提交</button>
-    <div class="message" id="messageBox"></div>
+  <h2>🎯 由抽奖登记</h2>
+  <input type="text" id="name" placeholder="请输入姓名" required>
+  <input type="tel" id="phone" placeholder="请输入手机号" required>
+  <button onclick="submitForm()">提交</button>
+  <div class="message" id="messageBox"></div>
 
-    <script>
-        function submitForm() {
-            const name = document.getElementById('name').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const messageBox = document.getElementById('messageBox');
+  <script>
+    function submitForm() {
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const messageBox = document.getElementById('messageBox');
 
-            if (!name || !phone) {
-                messageBox.innerText = '请填写完整信息';
-                messageBox.style.color = 'red';
-                return;
-            }
+      if (!name || !phone) {
+        messageBox.innerText = '请填写完整信息！';
+        messageBox.style.color = 'red';
+        return;
+      }
 
-            fetch("https://script.google.com/macros/s/AKfycbzv5Jp68jjb6mpkVedzGbwJ71EHL2QOSLgeYvQuwjvUAbXxGt7JG931DszYShJz7r4x/exec", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, phone })
-            })
-            .then(res => res.text())
-            .then(data => {
-                messageBox.innerText = '提交成功 🎉';
-                messageBox.style.color = 'green';
-                document.getElementById('name').value = '';
-                document.getElementById('phone').value = '';
-            })
-            .catch(err => {
-                messageBox.innerText = '提交失败，请稍后再试';
-                messageBox.style.color = 'red';
-            });
-        }
-    </script>
+      fetch("https://script.google.com/macros/s/AKfycbzv5Jp68jjb6mpkVedzGbwJ71EHL2QOSLgeYvQuw jvUAbXxGt7JG93lDszYShJz7r4x/exec", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, phone })
+      })
+      .then(res => res.text())
+      .then(data => {
+        messageBox.innerText = '提交成功 🎉';
+        messageBox.style.color = 'green';
+        document.getElementById('name').value = '';
+        document.getElementById('phone').value = '';
+      })
+      .catch(err => {
+        messageBox.innerText = '提交失败，请稍后再试：' + err;
+        messageBox.style.color = 'red';
+      });
+    }
+  </script>
 </body>
 </html>
